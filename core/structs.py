@@ -9,6 +9,20 @@ class Tensor:
         self._backward = lambda: None
         self.requires_grad = requires_grad
 
+    @classmethod
+    def _get_validated_other_object(cls, other):
+        whitelist_instance_types = (
+            int,
+            float,
+            np.ndarray)
+
+        if isinstance(other, whitelist_instance_types):
+            return Tensor(other)
+        elif isinstance(other, Tensor):
+            return other
+        else:
+            raise ValueError(f"The given operand {other} type is not acceptable!")
+
     def _unbroadcast(self, grad, shape):
         ...
 
@@ -16,7 +30,7 @@ class Tensor:
         return f"Tensor(data={self.data})"
 
     def __add__(self, other):
-        other = other if isinstance(other, Tensor) else Tensor(other)
+        other = self._get_validated_other_object(other)
         out = Tensor(self.data + other.data, (self, other))
         out.requires_grad = self.requires_grad or other.requires_grad
 
@@ -30,7 +44,7 @@ class Tensor:
         return out
 
     def __mul__(self, other):
-        other = other if isinstance(other, Tensor) else Tensor(other)
+        other = self._get_validated_other_object(other)
         out = Tensor(self.data * other.data, (self, other))
         out.requires_grad = self.requires_grad or other.requires_grad
 
@@ -45,7 +59,7 @@ class Tensor:
         return out
 
     def __matmul__(self, other):
-        other = other if isinstance(other, Tensor) else Tensor(other)
+        other = self._get_validated_other_object(other)
         out = Tensor(self.data @ other.data, (self, other))
         out.requires_grad = self.requires_grad or other.requires_grad
 
@@ -59,7 +73,7 @@ class Tensor:
         return out
 
     def __rmatmul__(self, other):
-        other = other if isinstance(other, Tensor) else Tensor(other)
+        other = self._get_validated_other_object(other)
         out = Tensor(other.data @ self.data, (self, other))
         out.requires_grad = self.requires_grad or other.requires_grad
 
