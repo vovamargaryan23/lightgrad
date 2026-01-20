@@ -2,10 +2,10 @@ import numpy as np
 
 
 class Tensor:
-    def __init__(self, data, _children=(), requires_grad = False, op = "", default_scalar_type = np.float32):
-        self._dst = default_scalar_type
-        self.data = np.array(data, dtype=self._dst)
-        self.grad = np.zeros_like(self.data, dtype=self._dst)
+    def __init__(self, data, _children=(), requires_grad = False, op = "", dtype = np.float32):
+        self.dtype = dtype
+        self.data = np.array(data, dtype=self.dtype)
+        self.grad = np.zeros_like(self.data, dtype=self.dtype)
         self._prev = set(_children)
         self._backward = lambda: None
         self.requires_grad = requires_grad
@@ -26,7 +26,8 @@ class Tensor:
                 f"Error: {e}"
             )
 
-    def _unbroadcast(self, grad, shape):
+    @classmethod
+    def _unbroadcast(cls, grad, shape):
         while grad.ndim > len(shape):
             grad = grad.sum(axis=0)
 
@@ -136,7 +137,7 @@ class Tensor:
         for v in reversed(topo):
             v._backward()
 
-    def ReLU(self):
+    def relu(self):
         out = Tensor(np.maximum(0, self.data), (self,), op="ReLU")
         out.requires_grad = self.requires_grad
 
