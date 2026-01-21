@@ -3,10 +3,10 @@
 ## Phase 1: The Tensor Core
 
 - [X] **N-Dimensional Tensor Class**: Build a wrapper around NumPy (initially) that supports `.data` and `.grad`.
-- [ ] **Topological Sort**: Implement a robust DAG walker for the `backward()` call to handle complex graphs without recursion limits.
+- [X] **Topological Sort**: Implement a robust DAG walker for the `backward()` call to handle complex graphs without recursion limits.
 - [X] **Broadcasting Engine**: Manually implement broadcasting logic for element-wise ops (Addition, Sub, Mul).
 - [X] **Matrix Multiplication (MatMul)**: Implement the derivative for $Y = A \times B$ (this is the core of all NNs).
-- [ ] **Fundamental Ops**: Implement `Sum`, `Mean`, `Max`, and `Transpose` with their respective gradient formulas.
+- [X] **Fundamental Ops**: Implement `Sum`, `Mean` and `Transpose` with their respective gradient formulas.
 
 ## Phase 2: The Deep Learning API
 
