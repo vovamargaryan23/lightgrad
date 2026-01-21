@@ -122,7 +122,7 @@ class Tensor:
 
         return out
 
-    def backward(self):
+    def _get_current_topology(self):
         topo = []
         visited = set()
         def build_topo(v):
@@ -133,9 +133,40 @@ class Tensor:
                 topo.append(v)
         build_topo(self)
 
+        return topo
+
+    def backward(self):
+        topo = self._get_current_topology()
+
         self.grad = np.ones_like(self.data)
         for v in reversed(topo):
             v._backward()
+
+    def zero_grad(self):
+        topo = self._get_current_topology()
+
+        for v in reversed(topo):
+            v.grad = np.zeros_like(v.data)
+
+    def exp(self):
+        out = Tensor(np.exp(self.data), (self, ), op="exp")
+        out.requires_grad = self.requires_grad
+
+        def _backward():
+            self.grad += out.grad * out.data
+
+        out._backward = _backward
+        return out
+
+    def log(self):
+        out = Tensor(np.log(self.data), (self, ), op="ln")
+        out.requires_grad = self.requires_grad
+
+        def _backward():
+            self.grad += out.grad * (1/self.data)
+
+        out._backward = _backward
+        return out
 
     def relu(self):
         out = Tensor(np.maximum(0, self.data), (self,), op="ReLU")

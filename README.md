@@ -4,7 +4,7 @@ LightGrad is a from-scratch automatic differentiation engine designed to uncover
 
 ## Core Engineering Features
 
-* **N-Dimensional Autodiff:** Full support for multi-dimensional arrays, moving beyond simple scalar-based engines to handle real-world matrix operations.
+* **N-Dimensional Autodiff:** Full support for multidimensional arrays, moving beyond simple scalar-based engines to handle real-world matrix operations.
 * **The Broadcasting Puzzle:** Implemented a custom unbroadcasting engine that correctly accumulates gradients when shapes expand and contract during the forward pass.
 * **Topological Execution:** Uses a directed acyclic graph (DAG) walker to ensure that every gradient is calculated only after its dependencies are ready.
 * **Mathematical Atoms:** Includes a suite of optimized operations like MatMul (batch-safe), ReLU, Power, Exp, and Log.
@@ -15,7 +15,7 @@ LightGrad is a from-scratch automatic differentiation engine designed to uncover
 The API is designed to feel familiar to anyone who has used PyTorch.
 
 ```python
-from lightgrad import Tensor
+from lightgrad.core import Tensor
 import numpy as np
 
 # Initialize parameters with gradient tracking
