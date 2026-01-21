@@ -125,13 +125,25 @@ class Tensor:
     def _get_current_topology(self):
         topo = []
         visited = set()
-        def build_topo(v):
-            if v not in visited:
-                visited.add(v)
-                for child in v._prev:
-                    build_topo(child)
+
+        stack = [(self, False)]
+
+        while stack:
+            v, expanded = stack.pop()
+
+            if expanded:
                 topo.append(v)
-        build_topo(self)
+                continue
+
+            if v in visited:
+                continue
+
+            visited.add(v)
+            stack.append((v, True))
+
+            for child in v._prev:
+                if child not in visited:
+                    stack.append((child, False))
 
         return topo
 
