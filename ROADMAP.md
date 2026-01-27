@@ -31,7 +31,7 @@
 
 ## Phase 4: Validation & Benchmarking
 
-- [ ] **The "Micro-GPT" Test**: Train a 3-layer Transformer on a tiny dataset (Shakespeare) using only your engine.
+- [ ] **The "Micro-GPT" Test**: Train a 3-layer Transformer on a tiny dataset (Shakespeare) using only this engine.
 - [ ] **The "ResNet" Test**: Implement a basic ConvNet and train it on MNIST/CIFAR-10.
-- [ ] **Profiling Artifacts**: Generate a PDF/README section showing **FLOPs** and **Memory Throughput** comparisons between your engine and PyTorch.
+- [ ] **Profiling Artifacts**: Generate a PDF/README section showing **FLOPs** and **Memory Throughput** comparisons between this engine and PyTorch.
 - [ ] **Graph Visualization**: Auto-generate a `.svg` of the computational graph for a single Transformer block using Graphviz.
