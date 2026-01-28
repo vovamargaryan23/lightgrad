@@ -10,8 +10,8 @@
 
 ## Phase 2: The Deep Learning API
 
-- [ ] **The `nn.Module` Abstraction**: Create a base class for Layers (`Linear`, `Conv2d`, `LayerNorm`) that tracks parameters.
-- [ ] **Weight Initialization**: Implement Xavier/Glorot and Kaiming/He initialization (critical for deep net stability).
+- [X] **The `nn.Module` Abstraction**: Create a base class for Layers (`Linear`, `Conv2d`, `LayerNorm`) that tracks parameters.
+- [X] **Weight Initialization**: Implement Xavier/Glorot and Kaiming/He initialization (critical for deep net stability).
 - [ ] **Modern Optimizers**: 
     - [ ] Standard SGD with Momentum.
     - [ ] **AdamW**: The industry standard for Transformers (includes weight decay).
