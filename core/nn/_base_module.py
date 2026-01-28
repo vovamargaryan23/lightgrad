@@ -1,11 +1,6 @@
 from abc import ABC, abstractmethod
 
-from core.tensor import Tensor
-
-
-class Parameter(Tensor):
-    def __init__(self, data):
-        super().__init__(data, requires_grad=True)
+from core.nn._parameter import Parameter
 
 
 class Module(ABC):
@@ -25,17 +20,12 @@ class Module(ABC):
         super().__setattr__(name, value)
 
     def parameters(self, recurse=True):
-        if not recurse:
-            return self._parameters
+        for p in self._parameters.values():
+            yield p
 
-        params = []
-
-        params.extend(self._parameters.values())
-
-        for sub_module in self._sub_modules.values():
-            params.extend(sub_module.parameters())
-
-        return params
+        if recurse:
+            for sub_module in self._sub_modules.values():
+                yield from sub_module.parameters()
 
     def zero_grad(self):
         for p in self.parameters():
