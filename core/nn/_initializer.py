@@ -15,7 +15,7 @@ class InitType(StrEnum):
 
 class ParameterInitializer:
     @staticmethod
-    def _xavier_normal(dims):
+    def _xavier_normal(dims, random_state):
         """
         initialize values with Xavier/Glorot normal initialization for given dimensions
         :param dims: tuple of ints representing each dimension
@@ -23,10 +23,10 @@ class ParameterInitializer:
         """
         fan_in, fan_out = ParameterInitializer._calculate_fans(dims)
         std = np.sqrt(2.0 / (fan_in + fan_out))
-        return np.random.normal(0, std, size=dims)
+        return random_state.normal(0, std, size=dims)
 
     @staticmethod
-    def _xavier_uniform(dims):
+    def _xavier_uniform(dims, random_state):
         """
         initialize values with Xavier/Glorot uniform initialization for given dimensions
         :param dims: tuple of ints representing each dimension
@@ -36,7 +36,7 @@ class ParameterInitializer:
 
         bound = np.sqrt(6/(fan_in + fan_out))
 
-        return np.random.uniform(-bound, bound, size=dims)
+        return random_state.uniform(-bound, bound, size=dims)
 
     @staticmethod
     def _calculate_fans(dims):
@@ -56,7 +56,7 @@ class ParameterInitializer:
             return fan_in, fan_out
 
     @staticmethod
-    def _kaiming_normal(dims):
+    def _kaiming_normal(dims, random_state):
         """
         initialize values with Kaiming/He normal initialization for given dimensions
         :param dims: tuple of ints representing each dimension
@@ -64,10 +64,10 @@ class ParameterInitializer:
         """
         fan_in, _ = ParameterInitializer._calculate_fans(dims)
         std = np.sqrt(2.0 / fan_in)
-        return np.random.normal(0, std, size=dims)
+        return random_state.normal(0, std, size=dims)
 
     @staticmethod
-    def _kaiming_uniform(dims):
+    def _kaiming_uniform(dims, random_state):
         """
         initialize values with Kaiming/He uniform initialization for given dimensions
         :param dims: tuple of ints representing each dimension
@@ -77,19 +77,19 @@ class ParameterInitializer:
 
         bound = np.sqrt(6/fan_in)
 
-        return np.random.uniform(-bound, bound, size=dims)
+        return random_state.uniform(-bound, bound, size=dims)
 
     @staticmethod
-    def _normal(dims):
+    def _normal(dims, random_state):
         """
         initialize values with normal distribution for given dimensions
         :param dims: tuple of ints representing each dimension
         :return: numpy.array
         """
-        return np.random.normal(size=dims)
+        return random_state.normal(size=dims)
 
     @staticmethod
-    def _zeros(dims):
+    def _zeros(dims, random_state):
         """
         initialize values with zero values for given dimensions
         :param dims: tuple of ints representing each dimension
@@ -116,16 +116,14 @@ class ParameterInitializer:
         :return: Parameter with randomly initialized values of given initialization type
         """
 
-        state = np.random.get_state()
-
         if random_seed is not None:
-            np.random.seed(random_seed)
+            state = np.random.RandomState(seed=random_seed)
+        else:
+            state = np.random
 
         method = cls._ENUM_TO_METHOD_MAPPING.get(init_type)
         if method is None:
             raise ValueError(f"Unknown initialization type: {init_type}")
-        wrapped_parameter = Parameter(method(tensor_dims))
-
-        np.random.set_state(state)
+        wrapped_parameter = Parameter(method(tensor_dims, random_state=state))
 
         return wrapped_parameter
