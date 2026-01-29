@@ -12,12 +12,11 @@ class Module(ABC):
         return self.forward(*args, **kwargs)
 
     def __setattr__(self, name, value):
+        super().__setattr__(name, value)
         if isinstance(value, Parameter):
             self._parameters[name] = value
         elif isinstance(value, Module):
             self._sub_modules[name] = value
-
-        super().__setattr__(name, value)
 
     def parameters(self, recurse=True):
         for p in self._parameters.values():
