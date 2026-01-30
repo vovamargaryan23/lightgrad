@@ -1,4 +1,4 @@
-from core.nn import Module, InitType, ParameterInitializer
+from nn import Module, InitType, ParameterInitializer
 
 
 class Linear(Module):

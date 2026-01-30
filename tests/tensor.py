@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 
-from core.tensor import Tensor
+from tensor import Tensor
 
 class TestTensorOps(unittest.TestCase):
     def assertArrayEqual(self, a, b):

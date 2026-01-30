@@ -1,4 +1,4 @@
-from core.tensor import Tensor
+from tensor import Tensor
 
 
 class Parameter(Tensor):

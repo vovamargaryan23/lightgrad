@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from core.nn._parameter import Parameter
+from nn import Parameter
 
 
 class Module(ABC):

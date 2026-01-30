@@ -1,7 +1,7 @@
 import numpy as np
 
 from enum import StrEnum
-from core.nn import Parameter
+from nn import Parameter
 
 
 class InitType(StrEnum):

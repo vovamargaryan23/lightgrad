@@ -31,7 +31,7 @@ class OpBase(ABC):
         ret_data = ctx.forward(*raw_data, **kwargs)
 
         # Imported here to avoid circular import error
-        from core.tensor import Tensor
+        from tensor import Tensor
         result = Tensor(ret_data, _children=tensors, op=cls.op_repr())
 
         result.grad_func = ctx

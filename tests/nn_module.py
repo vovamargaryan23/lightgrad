@@ -1,7 +1,7 @@
 import unittest
 
 import numpy as np
-from core.nn import Module, Parameter
+from nn import Module, Parameter
 
 
 class DummyModule(Module):

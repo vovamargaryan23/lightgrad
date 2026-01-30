@@ -1,16 +1,16 @@
 import numpy as np
 
-from core.tensor.ops import (AddOp,
-                             MultiplyOp,
-                             MatMulOp,
-                             PowerOp,
-                             ExponentOp,
-                             NaturalLogOp,
-                             ReluOp,
-                             SumOp,
-                             MeanOp,
-                             TransposeOp,
-                             ReshapeOp)
+from tensor.ops import (AddOp,
+                        MultiplyOp,
+                        MatMulOp,
+                        PowerOp,
+                        ExponentOp,
+                        NaturalLogOp,
+                        ReluOp,
+                        SumOp,
+                        MeanOp,
+                        TransposeOp,
+                        ReshapeOp)
 
 
 class Tensor:

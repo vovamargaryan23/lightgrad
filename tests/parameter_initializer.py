@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 
-from core.nn import ParameterInitializer, InitType, Parameter
+from nn import ParameterInitializer, InitType, Parameter
 
 
 class ParameterInitializerTest(unittest.TestCase):
