@@ -224,6 +224,23 @@ class MeanOp(OpBase):
         return (op,)
 
 
+class SigmoidOp(OpBase):
+    @classmethod
+    def op_repr(cls):
+        return "sigmoid"
+
+    def forward(self, a, **kwargs):
+        op = 1 / (1 + np.exp(-a))
+        self.save_tensors(op)
+        return op
+
+    def backward(self, output_grad):
+        sigmoid, = self.saved_tensors
+        op = output_grad * sigmoid * (1 - sigmoid)
+
+        return (op,)
+
+
 class TransposeOp(OpBase):
     def __init__(self, *tensors):
         super().__init__(*tensors)

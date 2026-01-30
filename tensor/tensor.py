@@ -7,6 +7,7 @@ from tensor.ops import (AddOp,
                         ExponentOp,
                         NaturalLogOp,
                         ReluOp,
+                        SigmoidOp,
                         SumOp,
                         MeanOp,
                         TransposeOp,
@@ -121,6 +122,9 @@ class Tensor:
 
     def relu(self):
         return ReluOp.apply(self)
+
+    def sigmoid(self):
+        return SigmoidOp.apply(self)
 
     def sum(self, axis=None, keepdims=False):
         return SumOp.apply(self, axis=axis, keepdims=keepdims)
