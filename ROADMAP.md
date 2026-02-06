@@ -13,7 +13,7 @@
 - [X] **The `nn.Module` Abstraction**: Create a base class for Layers (`Linear`, `Conv2d`, `LayerNorm`) that tracks parameters.
 - [X] **Weight Initialization**: Implement Xavier/Glorot and Kaiming/He initialization (critical for deep net stability).
 - [ ] **Modern Optimizers**: 
-    - [ ] Standard SGD with Momentum.
+    - [X] Standard SGD with Momentum.
     - [ ] **AdamW**: The industry standard for Transformers (includes weight decay).
 - [ ] **Activation Suite**: Implement ReLU, GELU (for Transformers), and Softmax.
 - [ ] **Loss Functions**: Cross-Entropy with "Log-Sum-Exp" trick for numerical stability.
@@ -22,7 +22,7 @@
 
 - [ ] **OpenAI Triton Integration**: 
     - [ ] Write a custom Triton Kernel for a "Fused MLP" (MatMul + ReLU + LayerNorm).
-    - [ ] Benchmark your Triton Kernel vs. your naive NumPy implementation.
+    - [ ] Benchmark Triton Kernel vs. naive NumPy implementation.
 - [ ] **Mixed Precision (FP16/BF16)**: Implement a `GradScaler` to handle small gradients when training in half-precision.
 - [ ] **Rust/C++ Extension**: 
     - [ ] Rewrite the "bottleneck" (usually the MatMul or Conv loop) in Rust or C++.
