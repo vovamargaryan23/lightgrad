@@ -15,7 +15,7 @@ class StochasticGradientDescent(BaseOptimizer):
             if not 0.0 <= momentum < 1.0:
                 raise ValueError("momentum must be in [0, 1)")
             self.momentum = momentum
-            self._velocities = {id(p): np.zeros_like(p.data) for  p in self.parameters}
+            self._velocities = {p: np.zeros_like(p.data) for p in self.parameters}
             self._step_function = self._step_through_sgd_with_momentum
 
     def _step_through_default_sgd(self, p):
@@ -23,11 +23,10 @@ class StochasticGradientDescent(BaseOptimizer):
         p.data -= self.learning_rate * grad
 
     def _step_through_sgd_with_momentum(self, p):
-        v = self._velocities[id(p)]
+        v = self._velocities[p]
 
-        v = self.momentum * v + p.grad
-
-        self._velocities[id(p)] = v
+        v *= self.momentum
+        v += p.grad
 
         p.data -= self.learning_rate * v
 
